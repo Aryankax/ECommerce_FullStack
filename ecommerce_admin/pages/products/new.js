@@ -2,16 +2,20 @@ import Layout from "@/components/layout";
 import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 export default function New(){
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
+    const [goToProducts, setGoToProducts] = useState(false);
+    const router = useRouter();
 
-    async function createProduct(){
-        // ev.preventDefault();
+    async function createProduct(ev){
+        ev.preventDefault();
         const data = {title, description, price}
         await axios.post('/api/products', data);
+        router.push('/products');
     }
 
     return (

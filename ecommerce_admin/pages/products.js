@@ -1,7 +1,16 @@
 import Layout from "@/components/layout";
+import axios from "axios";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Products(){
+    const [products, setProducts] = useState([]);
+    useEffect(()=>{
+        axios.get('/api/products').then(mongoRes => {
+            setProducts(mongoRes.data);
+        });
+    }, []);
+
     return (
         <>
            <Layout>
@@ -10,6 +19,36 @@ export default function Products(){
                     Add new product
                 </Link>
                 </div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Price(in INR)</th>
+                    </tr>
+                    </thead>
+                        <tbody>
+                            {products.map(product => (
+                                <tr>
+                                <td>
+                                    {product.title}
+                                </td>
+                                <td>
+                                    {product.description}
+                                </td>
+                                <td>
+                                    {product.price}
+                                </td>
+                                <td>
+                                    <Link href={'/products/edit/'+ product._id}>Edit</Link>
+                                </td>
+                                <td>
+                                    <Link href={'/products/delete/'+ product._id}>Delete</Link>
+                                </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                </table>
            </Layout>
         </>
     )

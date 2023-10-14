@@ -23,3 +23,10 @@ label{
   @apply bg-blue-900 text-white px-4 rounded-full w-40 ml-3 mt-3;
 }
 
+table{
+  @apply font-sans m-5 mt-12 ml-3 w-fit
+}
+
+td,th {
+  @apply border-2 border-gray-400 p-2 text-left bg-slate-100
+}
